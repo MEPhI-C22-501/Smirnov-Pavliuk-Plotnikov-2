@@ -24,15 +24,13 @@ begin
     if i_rst = '1' then  
         o_result <= (others => '0');
         o_regWrite <= '0';
-    elsif rising_edge(i_clk) then 
-		  
-		  if i_resultSrc = '1' then
+    elsif rising_edge(i_clk) then  
+	if i_resultSrc = '1' then
            o_result <= i_ALUResult;
         else
            o_result <= i_read_data;
         end if;
-		  
-		  o_regWrite <= i_regWrite;
+	o_regWrite <= i_regWrite;
     end if;
   end process;
 end Behavioral;
