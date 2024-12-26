@@ -159,6 +159,7 @@ architecture behavioral of RISC_V_PROCESSOR is
   signal PCoutput					: std_logic_vector(15 downto 0);
   signal PC_write_enable		: std_logic;
 
+  signal wb_result_src 			:  std_logic;
   signal wb_result				: std_logic_vector(31 downto 0);
   signal wb_regWrite				: std_logic;
   
@@ -255,10 +256,10 @@ begin
     
 	 i_read_data    => datamem_result,  --
     i_ALUResult    => alu_result, --
-    i_resultSrc    => '1',     
+    i_resultSrc    => wb_result_src,  --   
 	 
     i_regWrite     => '1',
-    o_result       => wb_result,
+    o_result       => wb_result, --
     o_regWrite     => wb_regWrite
   );
 
