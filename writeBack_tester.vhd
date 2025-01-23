@@ -8,8 +8,8 @@ entity WriteBack_tester is
            i_read_data    : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
            i_ALUResult    : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
            i_resultSrc    : out  STD_LOGIC;  
-           i_regWrite     : out  STD_LOGIC;  
-           o_result       : in STD_LOGIC_VECTOR(31 downto 0)
+           i_regWrite     : out  STD_LOGIC  
+           --o_result       : in STD_LOGIC_VECTOR(31 downto 0)
 			  );
 end entity WriteBack_tester;
 
@@ -20,16 +20,16 @@ architecture tester of WriteBack_tester is
 begin
 	clk_process : process 
    begin
-        i_clk <= '0';
-        wait for clk_period / 2;
         i_clk <= '1';
+        wait for clk_period / 2;
+        i_clk <= '0';
         wait for clk_period / 2;
    end process;
 	test_process : process
    begin
-		
+			
 			i_rst <='0';
-         i_regWrite <= '0'; 
+            i_regWrite <= '0'; 
 			i_resultSrc <= '0'; 
 			wait for clk_period * 2;
 			i_regWrite <= '1';	
@@ -50,7 +50,7 @@ begin
 			i_resultSrc <= '1';
 			wait for clk_period * 2;  
 			i_rst <= '1';
-		   wait for clk_period * 2;  
+		    wait for clk_period * 2;  
 			wait for clk_period * 2; 
 			i_regWrite <= '1';
 
