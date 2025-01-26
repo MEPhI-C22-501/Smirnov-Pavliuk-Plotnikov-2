@@ -20,22 +20,22 @@ end entity WriteBack;
 
 architecture Behavioral of WriteBack is
 begin
-   process(i_rst, i_clk)
+   process(i_clk, i_rst)
    begin
-    if i_rst = '1' then  
+   if i_rst = '1' then  
         o_result <= (others => '0');
-    elsif rising_edge(i_clk) then  
-	 
+   elsif rising_edge(i_clk) then 
 		if i_result_src = "00" then
            o_result <= i_ALU_result;
 		elsif i_result_src = "01" then
            o_result <= i_datamem_result;
 		elsif i_result_src = "10" then
            o_result <= i_CSR_result;
-		end if;      
-		
+		else
+			  o_result <= (others => '0');
+		end if;
 	end if;
-  end process;
+	end process;
 end Behavioral;
 
 
