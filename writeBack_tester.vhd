@@ -4,13 +4,13 @@ use IEEE.numeric_std.all;
 
 entity WriteBack_tester is
     Port ( 
-	i_clk          : out  STD_LOGIC;
-	i_rst          : out  STD_LOGIC;
-	i_datamem_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
-  i_ALU_result         : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
-  i_CSR_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
-  i_result_src        : out  STD_LOGIC_VECTOR(1 downto 0)  := "00"
-  
+	       i_clk          : out  STD_LOGIC;
+	       i_rst          : out  STD_LOGIC;
+	       i_datamem_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
+         i_ALU_result         : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
+         i_CSR_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
+         i_result_src        : out  STD_LOGIC_VECTOR(1 downto 0)  := "00"
+
   );
 end entity WriteBack_tester;
 
@@ -78,22 +78,24 @@ begin
   -- Выбор результата из АЛУ
   i_result_src <= "00"; 
   wait_clk(1);
+  wait_clk(1);
   i_ALU_result <= x"12345678"; 
+  wait_clk(1);
   wait_clk(1);
   
   -- Выбор результата из CSR
   i_result_src <= "10";
   wait_clk(1);
+  wait_clk(1);
   i_CSR_result <= x"10101010";
   wait_clk(1);
-  
   wait_clk(1);
   -- Сброс
   i_rst <= '1';
   wait_clk(1);
   i_rst <= '0';
-  i_result_src <= "11";
 
+  -- Одновременное изменение и упр. слова, и информации на входах.
   wait_clk(1);
   i_result_src <= "00"; 
   i_ALU_result <= x"88888888";
