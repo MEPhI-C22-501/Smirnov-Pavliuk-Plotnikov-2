@@ -6,12 +6,11 @@ entity WriteBack_tester is
     Port ( 
 	i_clk          : out  STD_LOGIC;
 	i_rst          : out  STD_LOGIC;
-       
 	i_datamem_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
-        i_ALU_result         : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
-        i_CSR_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000";
-           
-        i_result_src        : out  STD_LOGIC_VECTOR(1 downto 0)  := "00"
+  i_ALU_result         : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
+  i_CSR_result     : out  STD_LOGIC_VECTOR(31 downto 0) := x"00000000"; 
+  i_result_src        : out  STD_LOGIC_VECTOR(1 downto 0)  := "00"
+  
   );
 end entity WriteBack_tester;
 
@@ -44,7 +43,7 @@ begin
   i_datamem_result <= (others => '0');
   i_CSR_result <= (others => '0');
   --i_result_src <= "00";
-  wait_clk(2); 
+  wait_clk(1); 
 
   
   i_rst <= '0';
@@ -56,44 +55,54 @@ begin
 
   -- Выбор результата из памяти данных
   i_result_src <= "01"; 
-  wait_clk(2); 
+  wait_clk(1); 
 
   -- Выбор результата из АЛУ
   i_result_src <= "00";
-  wait_clk(2);
+  wait_clk(1);
   
   -- Выбор результата из CSR
   i_result_src <= "10";
-  wait_clk(2);
+  wait_clk(1);
   
   -- Выбор запрещённого значения
   i_result_src <= "11";
-  wait_clk(2);
+  wait_clk(1);
   
   -- Выбор памяти данных
   i_result_src <= "01"; 
-  wait_clk(2);
+  wait_clk(1);
   i_datamem_result <= x"87654321";
-  wait_clk(2);
+  wait_clk(1);
   
   -- Выбор результата из АЛУ
   i_result_src <= "00"; 
-  wait_clk(2);
+  wait_clk(1);
   i_ALU_result <= x"12345678"; 
-  wait_clk(2);
+  wait_clk(1);
   
   -- Выбор результата из CSR
   i_result_src <= "10";
-  wait_clk(2);
+  wait_clk(1);
   i_CSR_result <= x"10101010";
-  wait_clk(2);
+  wait_clk(1);
   
-  wait_clk(2);
+  wait_clk(1);
   -- Сброс
   i_rst <= '1';
-  wait_clk(2);
-  
+  wait_clk(1);
+  i_rst <= '0';
   i_result_src <= "11";
+
+  wait_clk(1);
+  i_result_src <= "00"; 
+  i_ALU_result <= x"88888888";
+  wait_clk(1);
+  i_CSR_result <= x"10101010";
+  i_datamem_result <= x"87654321";
+  i_ALU_result <= x"0000000A"; 
+  i_result_src <= "01";
+
 
   -- Завершение симуляции
   wait;

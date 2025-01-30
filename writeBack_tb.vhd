@@ -7,8 +7,8 @@ end entity;
 
 architecture tb of WriteBack_tb is
 
-    signal clk            : STD_LOGIC := '0';
-    signal rst            : STD_LOGIC := '1';
+    signal clk            : STD_LOGIC;
+    signal rst            : STD_LOGIC;
     signal datamem_result : STD_LOGIC_VECTOR(31 downto 0); -- данные из памяти данных
     signal ALU_result     : STD_LOGIC_VECTOR(31 downto 0); -- данные из АЛУ
     signal CSR_result     : STD_LOGIC_VECTOR(31 downto 0); -- данные из CSR
